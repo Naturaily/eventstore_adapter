@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+      - bundle:/bundle
+    command: ./bin/start.sh
+    depends_on:
+      - event_store
+    links:
+      - event_store
+
+  event_store:
+    image: eventstore/eventstore:latest
+    ports:
+      - 2113:2113
+
+  bundle:
+    image: busybox
+    volumes:
+      - bundle:/bundle
+
+volumes:
+  bundle:
