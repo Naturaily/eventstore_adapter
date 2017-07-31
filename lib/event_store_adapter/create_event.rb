@@ -8,7 +8,6 @@ module EventStoreAdapter
     DEFAULT_HEADERS = { "Content-Type" => "application/vnd.eventstore.events+json" }.freeze
 
     def initialize(stream, event_id, event_type, message, headers = {})
-      # binding.pry
       self.stream = stream
       self.event_type = event_type
       self.message = message
@@ -16,7 +15,7 @@ module EventStoreAdapter
       self.headers = headers
     end
 
-    def create
+    def write
       self.class.post("/streams/#{stream}", options)
     end
 

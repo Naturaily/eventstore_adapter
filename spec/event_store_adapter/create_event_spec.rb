@@ -3,13 +3,20 @@
 require "spec_helper"
 
 RSpec.describe EventStoreAdapter::CreateEvent do
-  describe "#create" do
+  describe "#write" do
     let(:stream) { "newstream" }
     let(:event_type) { "test_event" }
     let(:event_id) { SecureRandom.uuid }
-    let(:message) { { someevent: "message body" } }
+    let(:message) { { "someevent" => "message body" } }
 
-    subject { described_class.new(stream, event_id, event_type, message).create }
+    subject { described_class.new(stream, event_id, event_type, message).write }
+
+    it "sends correct request" do
+      VCR.use_cassette "create_event" do
+        request = [{ "eventId" => event_id, "eventType" => event_type, "data" => message }]
+        expect(JSON.parse(subject.request.options[:body])).to eq request
+      end
+    end
 
     it "creates event in event store" do
       VCR.use_cassette "create_event" do
@@ -17,7 +24,7 @@ RSpec.describe EventStoreAdapter::CreateEvent do
       end
     end
 
-    it "creates event in event store" do
+    it "returns code 201 (created)" do
       VCR.use_cassette "create_event" do
         expect(subject.response.code).to eq "201"
       end
