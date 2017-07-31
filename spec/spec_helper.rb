@@ -1,10 +1,18 @@
-require 'webmock/rspec'
+# frozen_string_literal: true
+
+require "bundler/setup"
+Bundler.setup
+
+require "event_store_adapter"
+require "webmock/rspec"
+require "pry"
+require "vcr"
 
 def file_fixture(filename)
-  open(File.join(File.dirname(__FILE__), 'fixtures', "#{filename}")).read
+  open(File.join(File.dirname(__FILE__), "fixtures", filename.to_s)).read
 end
 
-Dir[File.expand_path(File.join(File.dirname(__FILE__), 'support', '**', '*.rb'))].each {|f| require f}
+Dir[File.expand_path(File.join(File.dirname(__FILE__), "support", "**", "*.rb"))].each { |f| require f }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -23,7 +31,7 @@ RSpec.configure do |config|
   config.warnings = true
 
   if config.files_to_run.one?
-    config.default_formatter = 'doc'
+    config.default_formatter = "doc"
   end
 
   config.profile_examples = 10

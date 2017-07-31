@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 gemspec
@@ -11,4 +13,9 @@ end
 group :test do
   gem "rspec"
   gem "webmock"
+  gem "vcr"
+end
+
+group :development, :test do
+  gem "pry-byebug"
 end

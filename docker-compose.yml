@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/app
       - bundle:/bundle
-    command: ./bin/start.sh
+    command: tail -F -n0 /etc/hosts
     depends_on:
       - event_store
     links:
