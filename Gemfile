@@ -5,6 +5,7 @@ source "https://rubygems.org"
 gemspec
 
 gem "rake"
+gem "feedjira"
 
 group :development do
   gem "rubocop"

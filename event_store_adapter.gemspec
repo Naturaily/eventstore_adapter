@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency("httparty", "~> 0.15")
   s.add_dependency("uuid", "~> 2.3")
+  s.add_dependency("feedjira", "~> 2.1")
 end
