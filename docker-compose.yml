@@ -17,10 +17,5 @@ services:
     ports:
       - 2113:2113
 
-  bundle:
-    image: busybox
-    volumes:
-      - bundle:/bundle
-
 volumes:
   bundle:

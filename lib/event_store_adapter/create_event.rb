@@ -7,12 +7,12 @@ module EventStoreAdapter
 
     DEFAULT_HEADERS = { "Content-Type" => "application/vnd.eventstore.events+json" }.freeze
 
-    def initialize(stream, event_id, event_type, message, headers = {})
+    def initialize(stream:, event_type:, message:, **options)
       self.stream = stream
       self.event_type = event_type
       self.message = message
-      self.event_id = ::UUID.validate(event_id).nil? ? SecureRandom.uuid : event_id
-      self.headers = headers
+      self.headers = options.delete(:headers)
+      set_event_id(options.delete(:event_id))
     end
 
     def write
@@ -36,8 +36,27 @@ module EventStoreAdapter
     def options
       @options ||= {
         body: body.to_json,
-        headers: DEFAULT_HEADERS.merge(headers)
+        headers: merged_headers
       }
+    end
+
+    def set_event_id(event_id)
+      self.event_id = if event_id.present?
+                        if ::UUID.validate(event_id).nil?
+                          raise ArgumentError.new("invalid event_id option")
+                        end
+                        event_id
+                      else
+                        SecureRandom.uuid
+                      end
+    end
+
+    def merged_headers
+      if headers.nil?
+        DEFAULT_HEADERS
+      else
+        DEFAULT_HEADERS.merge(headers)
+      end
     end
   end
 end

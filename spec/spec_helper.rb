@@ -7,6 +7,7 @@ require "event_store_adapter"
 require "webmock/rspec"
 require "pry"
 require "vcr"
+require "rails"
 
 def file_fixture(filename)
   open(File.join(File.dirname(__FILE__), "fixtures", filename.to_s)).read

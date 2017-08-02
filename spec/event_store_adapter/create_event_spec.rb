@@ -9,7 +9,7 @@ RSpec.describe EventStoreAdapter::CreateEvent do
     let(:event_id) { SecureRandom.uuid }
     let(:message) { { "someevent" => "message body" } }
 
-    subject { described_class.new(stream, event_id, event_type, message).write }
+    subject { described_class.new(stream: stream, event_type: event_type, message: message, event_id: event_id).write }
 
     it "sends correct request" do
       VCR.use_cassette "create_event" do
