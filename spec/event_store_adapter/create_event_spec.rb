@@ -9,7 +9,11 @@ RSpec.describe EventStoreAdapter::CreateEvent do
     let(:event_id) { SecureRandom.uuid }
     let(:message) { { "someevent" => "message body" } }
 
-    subject { described_class.new(stream: stream, event_type: event_type, message: message, event_id: event_id).write }
+    subject do
+      described_class.new(stream: stream, event_type: event_type,
+                          message: message, event_id: event_id)
+                     .write
+    end
 
     it "sends correct request" do
       VCR.use_cassette "create_event" do
@@ -20,7 +24,7 @@ RSpec.describe EventStoreAdapter::CreateEvent do
 
     it "creates event in event store" do
       VCR.use_cassette "create_event" do
-        expect(subject.headers["location"]).to eq "http://event_store:2113/streams/newstream/29"
+        expect(subject.headers["location"]).to eq "http://localhost:2113/streams/newstream/29"
       end
     end
 

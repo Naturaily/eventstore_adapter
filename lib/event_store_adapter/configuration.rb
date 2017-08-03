@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module EventStoreAdapter
+  DEFAULT_BASE_URI = "localhost:2113"
+
   class << self
     attr_writer :configuration
   end
@@ -17,7 +19,7 @@ module EventStoreAdapter
     attr_accessor :base_uri
 
     def initialize
-      @base_uri = "event_store:2113"
+      @base_uri = DEFAULT_BASE_URI
     end
   end
 end

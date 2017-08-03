@@ -43,7 +43,7 @@ module EventStoreAdapter
     def set_event_id(event_id)
       self.event_id = if event_id.present?
                         if ::UUID.validate(event_id).nil?
-                          raise ArgumentError.new("invalid event_id option")
+                          raise ArgumentError, "invalid event_id option"
                         end
                         event_id
                       else

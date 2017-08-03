@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://event_store:2113/streams/newstream
+    uri: http://localhost:2113/streams/newstream
     body:
       encoding: UTF-8
       string: '[{"eventId":"7032af63-e9a9-40d7-a30a-d31ea0627d96","eventType":"test_event","data":{"someevent":"message
@@ -26,7 +26,7 @@ http_interactions:
       Access-Control-Expose-Headers:
       - Location, ES-Position, ES-CurrentVersion
       Location:
-      - http://event_store:2113/streams/newstream/29
+      - http://localhost:2113/streams/newstream/29
       Content-Type:
       - text/plain; charset=utf-8
       Server:
