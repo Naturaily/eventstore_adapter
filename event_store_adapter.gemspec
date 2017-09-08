@@ -2,9 +2,11 @@
 
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 
+require "event_store_adapter/version"
+
 Gem::Specification.new do |s|
   s.name        = "eventstore_adapter"
-  s.version     = "0.0.1"
+  s.version     = EventStoreAdapter::VERSION
   s.authors     = ["Marcin Mantke"]
   s.summary     = "EventStore adapter for Ruby"
   s.email       = "marcin.mantke@naturaily.com"
